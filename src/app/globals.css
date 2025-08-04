@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Brand Colors - Deep Purple Theme */
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+    --primary-hover: 262 83% 48%;
+    --primary-soft: 262 50% 25%;
+    
+    /* Secondary - Rich Dark Blue */
+    --secondary: 222 84% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --secondary-hover: 222 84% 25%;
+    --secondary-soft: 222 60% 12%;
+    
+    /* Accent - Refined Purple */
+    --accent: 270 95% 75%;
+    --accent-foreground: 222 84% 4.9%;
+    --accent-hover: 270 95% 65%;
+    --accent-soft: 270 60% 25%;
+    
+    /* Background System */
+    --background: 222 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --background-elevated: 222 84% 6%;
+    
+    /* Surface Colors */
+    --surface: 217 32% 17%;
+    --surface-foreground: 210 40% 98%;
+    --surface-hover: 217 32% 24%;
+    --surface-elevated: 217 32% 20%;
+    --surface-dimmed: 217 32% 14%;
+    
+    /* Panel System */
+    --panel: 217 32% 17%;
+    --panel-foreground: 210 40% 98%;
+    --panel-border: 217 32% 24%;
+    --panel-border-soft: 217 32% 20%;
+    --panel-elevated: 217 32% 20%;
+    
+    /* Muted Colors */
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --muted-hover: 215 20.2% 70%;
+    
+    /* Border System */
+    --border: 217 32% 24%;
+    --border-hover: 270 95% 45%;
+    --border-accent: 270 95% 35%;
+    --border-subtle: 217 32% 20%;
+    
+    /* Utility Colors */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 84% 4.9%;
+    
+    /* Enhanced Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(270 95% 75%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(222 84% 18%) 0%, hsl(217 32% 17%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(270 95% 75%) 0%, hsl(262 83% 58%) 100%);
+    --gradient-surface: linear-gradient(145deg, hsl(217 32% 17%) 0%, hsl(217 32% 14%) 100%);
+    --gradient-panel: linear-gradient(145deg, hsl(217 32% 20%) 0%, hsl(217 32% 17%) 100%);
+    --gradient-glow: linear-gradient(135deg, hsla(270 95% 75% / 0.2) 0%, hsla(262 83% 58% / 0.1) 100%);
+    
+    /* Enhanced Glass Effects */
+    --glass-bg: hsla(217, 32%, 17%, 0.85);
+    --glass-border: hsla(270, 95%, 75%, 0.25);
+    --glass-subtle: hsla(217, 32%, 20%, 0.7);
+    --glass-strong: hsla(217, 32%, 17%, 0.95);
+    
+    /* Enhanced Shadows */
+    --shadow-sm: 0 1px 2px 0 hsla(222, 84%, 4%, 0.08);
+    --shadow-md: 0 4px 6px -1px hsla(222, 84%, 4%, 0.15), 0 2px 4px -2px hsla(222, 84%, 4%, 0.08);
+    --shadow-lg: 0 10px 15px -3px hsla(222, 84%, 4%, 0.2), 0 4px 6px -4px hsla(222, 84%, 4%, 0.1);
+    --shadow-xl: 0 20px 25px -5px hsla(222, 84%, 4%, 0.25), 0 10px 10px -5px hsla(222, 84%, 4%, 0.08);
+    --shadow-glow: 0 0 20px hsla(270, 95%, 75%, 0.3);
+    --shadow-glow-soft: 0 0 15px hsla(262, 83%, 58%, 0.2);
+    --shadow-inner: inset 0 2px 4px 0 hsla(222, 84%, 4%, 0.1);
+    
+    /* Animation Durations */
+    --duration-fast: 150ms;
+    --duration-medium: 250ms;
+    --duration-slow: 350ms;
+    --duration-ultra-fast: 100ms;
+    
+    /* Code Editor Specific */
+    --editor-bg: 217 32% 12%;
+    --editor-border: 217 32% 20%;
+    --editor-text: 210 40% 95%;
+    --editor-line-numbers: 215 20.2% 45%;
+    --editor-line-highlight: 217 32% 15%;
+    --editor-selection: 262 83% 58% / 0.3;
+    --editor-tab-active: 217 32% 20%;
+    --editor-tab-inactive: 217 32% 14%;
+    --editor-tab-hover: 217 32% 18%;
+    
+    /* Syntax Highlighting */
+    --syntax-keyword: 262 83% 75%;
+    --syntax-string: 142 76% 65%;
+    --syntax-number: 38 92% 70%;
+    --syntax-comment: 215 20.2% 55%;
+    --syntax-function: 200 98% 70%;
+    --syntax-variable: 270 95% 80%;
+    --syntax-type: 262 83% 65%;
+    --syntax-operator: 270 95% 85%;
+    
+    /* File Explorer Specific */
+    --explorer-bg: 217 32% 16%;
+    --explorer-item-hover: 217 32% 22%;
+    --explorer-item-selected: 262 83% 58% / 0.2;
+    --explorer-item-active: 262 83% 58% / 0.3;
+    --explorer-folder-icon: 270 95% 70%;
+    --explorer-file-icon: 215 20.2% 65%;
+    
+    /* Markdown Specific (Enhanced) */
+    --code-bg: 217 32% 12%;
+    --code-border: 217 32% 20%;
+    --code-text: 210 40% 95%;
+    --inline-code-bg: 217 32% 15%;
+    --inline-code-text: 270 95% 80%;
+    --blockquote-border: 270 95% 65%;
+    --blockquote-bg: 217 32% 10%;
+    --table-border: 217 32% 25%;
+    --table-header-bg: 217 32% 15%;
+    --link-color: 270 95% 75%;
+    --link-hover: 270 95% 85%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  #__next {
+    height: 100%;
+  }
+}
+
+@layer utilities {
+  /* Enhanced Glass Effects */
+  .glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-subtle {
+    background: var(--glass-subtle);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .glass-strong {
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Enhanced Text Effects */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+  }
+
+  .gradient-text-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+  }
+
+  /* Enhanced Glow Effects */
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-soft {
+    box-shadow: var(--shadow-glow-soft);
+  }
+
+  .shadow-enhanced {
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Enhanced Transitions */
+  .panel-transition {
+    transition: all var(--duration-medium) cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .smooth-transition {
+    transition: all var(--duration-fast) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .ultra-smooth {
+    transition: all var(--duration-ultra-fast) ease-out;
+  }
+
+  /* Code Editor Specific */
+  .editor-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .editor-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .editor-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .editor-scrollbar::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  .editor-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--border-hover));
+  }
+
+  /* File Explorer Specific */
+  .explorer-tree-line {
+    position: relative;
+  }
+
+  .explorer-tree-line::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: hsl(var(--border-subtle));
+  }
+
+  .explorer-item-hover {
+    background: linear-gradient(90deg, transparent, hsl(var(--explorer-item-hover)) 10%, hsl(var(--explorer-item-hover)) 90%, transparent);
+  }
+
+  /* Enhanced Focus States */
+  .focus-ring {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  .focus-ring-accent {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+  }
+
+  /* Force remove ALL textarea outlines - focused AND unfocused */
+  textarea,
+  textarea:focus,
+  textarea:focus-visible,
+  textarea:not(:focus),
+  input,
+  input:focus,
+  input:focus-visible,
+  input:not(:focus) {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Code editor specific no-outline - ALL states */
+  .editor-scrollbar textarea,
+  .editor-scrollbar textarea:focus,
+  .editor-scrollbar textarea:focus-visible,
+  .editor-scrollbar textarea:not(:focus) {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Enhanced Markdown Styles */
+  .markdown-content {
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4,
+  .markdown-content h5,
+  .markdown-content h6 {
+    margin: 1.5em 0 0.8em 0;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .markdown-content h1 { 
+    font-size: 1.75em; 
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .markdown-content h2 { font-size: 1.5em; color: hsl(var(--accent)); }
+  .markdown-content h3 { font-size: 1.3em; color: hsl(var(--accent)); }
+  .markdown-content h4 { font-size: 1.1em; color: hsl(var(--foreground)); }
+  .markdown-content h5 { font-size: 1em; color: hsl(var(--foreground)); }
+  .markdown-content h6 { font-size: 0.9em; color: hsl(var(--muted-foreground)); }
+
+  .markdown-content p {
+    margin: 0;
+  }
+
+  .markdown-content ul,
+  .markdown-content ol {
+    margin: 0.8em 0;
+    padding-left: 1.5em;
+  }
+
+  .markdown-content li {
+    margin: 0.3em 0;
+  }
+
+  .markdown-content ul li::marker {
+    color: hsl(var(--accent));
+  }
+
+  .markdown-content ol li::marker {
+    color: hsl(var(--accent));
+    font-weight: 600;
+  }
+
+  .markdown-content strong {
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  .markdown-content em {
+    font-style: italic;
+    color: hsl(var(--accent));
+  }
+
+  .markdown-content hr {
+    margin: 2em 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  }
+
+  .markdown-content a {
+    color: hsl(var(--link-color));
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--duration-fast) ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .markdown-content a:hover {
+    color: hsl(var(--link-hover));
+    border-bottom-color: hsl(var(--link-hover));
+  }
+
+  .markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    background: hsl(var(--surface));
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid hsl(var(--table-border));
+  }
+
+  .markdown-content thead {
+    background: hsl(var(--table-header-bg));
+  }
+
+  .markdown-content th,
+  .markdown-content td {
+    padding: 0.75em 1em;
+    text-align: left;
+    border-bottom: 1px solid hsl(var(--table-border));
+  }
+
+  .markdown-content th {
+    font-weight: 600;
+    color: hsl(var(--accent));
+    border-bottom: 2px solid hsl(var(--accent));
+  }
+
+  .markdown-content tr:last-child td {
+    border-bottom: none;
+  }
+
+  .markdown-content tr:hover {
+    background: hsl(var(--surface-hover));
+  }
+}
