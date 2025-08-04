@@ -14,12 +14,27 @@ const initialFileSystem: FileItem[] = []
 
 export function FileExplorer({
   rootPath = '/',
+  files: externalFiles,
+  onFilesChange,
   onFileSelect,
   onFileOpen,
   className,
   height = 'h-full'
 }: FileExplorerProps) {
-  const [files, setFiles] = useState<FileItem[]>(initialFileSystem)
+  const [files, setFiles] = useState<FileItem[]>(externalFiles || initialFileSystem)
+  
+  // Sync with external files
+  useEffect(() => {
+    if (externalFiles) {
+      setFiles(externalFiles)
+    }
+  }, [externalFiles])
+  
+  // Notify parent of file changes
+  const updateFiles = useCallback((newFiles: FileItem[]) => {
+    setFiles(newFiles)
+    onFilesChange?.(newFiles)
+  }, [onFilesChange])
   const [selectedFile, setSelectedFile] = useState<FileItem | null>(null)
   const [createDialog, setCreateDialog] = useState<{
     open: boolean
@@ -44,31 +59,34 @@ export function FileExplorer({
   }, [onFileSelect, onFileOpen])
 
   const handleFolderToggle = useCallback((folder: FileItem) => {
-    setFiles(prev => updateFileInTree(prev, folder.path, (file) => ({
+    const newFiles = updateFileInTree(files, folder.path, (file) => ({
       ...file,
       isExpanded: !file.isExpanded
-    })))
-  }, [])
+    }))
+    updateFiles(newFiles)
+  }, [files, updateFiles])
 
   const handleFileRename = useCallback((file: FileItem, newName: string) => {
     const newPath = file.parentPath ? `${file.parentPath}/${newName}` : `/${newName}`
     
-    setFiles(prev => updateFileInTree(prev, file.path, (oldFile) => ({
+    const newFiles = updateFileInTree(files, file.path, (oldFile) => ({
       ...oldFile,
       name: newName,
       path: newPath,
       id: generateFileId(newPath)
-    })))
-  }, [])
+    }))
+    updateFiles(newFiles)
+  }, [files, updateFiles])
 
   const handleFileDelete = useCallback((file: FileItem) => {
     if (confirm(`Are you sure you want to delete "${file.name}"?`)) {
-      setFiles(prev => removeFileFromTree(prev, file.path))
+      const newFiles = removeFileFromTree(files, file.path)
+      updateFiles(newFiles)
       if (selectedFile?.path === file.path) {
         setSelectedFile(null)
       }
     }
-  }, [selectedFile])
+  }, [selectedFile, files, updateFiles])
 
   // Get existing items in the current directory
   const getExistingItems = useCallback((parentPath: string) => {
@@ -129,16 +147,18 @@ export function FileExplorer({
     const newPath = parentPath === '/' ? `/${name}` : `${parentPath}/${name}`
     const newItem = createFileItem(name, type, newPath, parentPath === '/' ? undefined : parentPath)
     
+    let newFiles: FileItem[]
     if (parentPath === '/') {
-      setFiles(prev => [...prev, newItem])
+      newFiles = [...files, newItem]
     } else {
-      setFiles(prev => updateFileInTree(prev, parentPath, (folder) => ({
+      newFiles = updateFileInTree(files, parentPath, (folder) => ({
         ...folder,
         children: [...(folder.children || []), newItem],
         isExpanded: true
-      })))
+      }))
     }
-  }, [createDialog.parentPath])
+    updateFiles(newFiles)
+  }, [createDialog.parentPath, files, updateFiles])
 
   // Handle conflict resolution
   const handleReplaceFile = useCallback(() => {
@@ -166,18 +186,20 @@ export function FileExplorer({
     const newPath = parentPath === '/' ? `/${newName}` : `${parentPath}/${newName}`
     const newItem = createFileItem(newName, type, newPath, parentPath === '/' ? undefined : parentPath)
     
+    let newFiles: FileItem[]
     if (parentPath === '/') {
-      setFiles(prev => [...prev, newItem])
+      newFiles = [...files, newItem]
     } else {
-      setFiles(prev => updateFileInTree(prev, parentPath, (folder) => ({
+      newFiles = updateFileInTree(files, parentPath, (folder) => ({
         ...folder,
         children: [...(folder.children || []), newItem],
         isExpanded: true
-      })))
+      }))
     }
+    updateFiles(newFiles)
     
     setConflictDialog({ open: false, name: '', type: 'file', parentPath: '/' })
-  }, [conflictDialog, getExistingItems])
+  }, [conflictDialog, getExistingItems, files, updateFiles])
 
   const handleRefresh = useCallback(() => {
     // In a real implementation, this would reload from the file system

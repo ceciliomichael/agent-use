@@ -38,6 +38,8 @@ export interface FileItemProps {
 
 export interface FileExplorerProps {
   rootPath?: string
+  files?: FileItem[]
+  onFilesChange?: (files: FileItem[]) => void
   onFileSelect?: (file: FileItem) => void
   onFileOpen?: (file: FileItem) => void
   className?: string

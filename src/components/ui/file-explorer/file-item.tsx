@@ -120,7 +120,7 @@ export function FileItem({
               onChange={(e) => setEditName(e.target.value)}
               onBlur={handleRename}
               onKeyDown={handleKeyDown}
-              className="w-full bg-surface border border-accent rounded px-2 py-1 outline-none text-sm text-foreground focus:border-primary"
+              className="w-full bg-surface border border-accent rounded px-3 py-1 mr-3 outline-none text-sm text-foreground focus:border-primary"
             />
           ) : (
             <span className={cn(
@@ -137,7 +137,7 @@ export function FileItem({
 
         {/* File Info */}
         {item.type === 'file' && item.size !== undefined && (
-          <div className="flex items-center space-x-3 opacity-0 group-hover:opacity-100 smooth-transition">
+          <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 smooth-transition ml-2">
             <span className="text-xs text-muted-foreground font-medium bg-surface px-2 py-1 rounded border border-border-subtle">
               {formatFileSize(item.size)}
             </span>

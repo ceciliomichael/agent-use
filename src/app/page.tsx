@@ -13,6 +13,7 @@ import { generateFileId } from "@/lib/file-utils"
 export default function HomePage() {
   const [editorTabs, setEditorTabs] = useState<EditorTab[]>([])
   const [activeTabId, setActiveTabId] = useState<string>('')
+  const [fileExplorerFiles, setFileExplorerFiles] = useState<FileItem[]>([])
 
   const handleFileOpen = useCallback(async (file: FileItem) => {
     if (file.type !== 'file') return
@@ -64,10 +65,26 @@ export default function HomePage() {
           ? { ...t, content, isDirty: false }
           : t
       ))
+      
+      // Add file to explorer if it doesn't exist
+      const fileExists = fileExplorerFiles.some(f => f.path === tab.filePath)
+      if (!fileExists) {
+        const newFileItem: FileItem = {
+          id: generateFileId(tab.filePath, 'file'),
+          name: tab.title,
+          type: 'file',
+          path: tab.filePath,
+          parentPath: tab.filePath === `/${tab.title}` ? undefined : tab.filePath.substring(0, tab.filePath.lastIndexOf('/')),
+          size: new Blob([content]).size,
+          lastModified: new Date(),
+          isExpanded: false
+        }
+        setFileExplorerFiles(prev => [...prev, newFileItem])
+      }
     } catch (error) {
       console.error('Failed to save file:', error)
     }
-  }, [editorTabs])
+  }, [editorTabs, fileExplorerFiles])
 
   const handleNewTab = useCallback(() => {
     const timestamp = Date.now()
@@ -93,6 +110,8 @@ export default function HomePage() {
       <div className="w-80 flex-shrink-0">
         <FileExplorer
           onFileOpen={handleFileOpen}
+          files={fileExplorerFiles}
+          onFilesChange={setFileExplorerFiles}
           className="h-full"
         />
       </div>
